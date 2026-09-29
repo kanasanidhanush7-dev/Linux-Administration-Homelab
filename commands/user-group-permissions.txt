@@ -1,0 +1,151 @@
+============================================================
+       LINUX USER, GROUP & PERMISSION MANAGEMENT LAB
+============================================================
+
+PROJECT OBJECTIVE
+------------------------------------------------------------
+Practice Linux user management, group management, directory
+ownership, permissions, shared access, and SGID configuration.
+
+1. USERS CREATED
+------------------------------------------------------------
+
+Users:
+    devops
+    admin
+
+Check users:
+    getent passwd devops admin
+
+Check user information:
+    id devops
+    id admin
+
+2. GROUP CREATED
+------------------------------------------------------------
+
+Group:
+    linuxadmins
+
+Check group:
+    getent group linuxadmins
+
+Both users are members of linuxadmins.
+
+3. USER HOME DIRECTORIES
+------------------------------------------------------------
+
+Directories:
+    /home/devops
+    /home/admin
+
+Ownership:
+    devops:devops -> /home/devops
+    admin:admin   -> /home/admin
+
+Permissions:
+    750
+
+Verification:
+    ls -ld /home/devops /home/admin
+
+4. SHARED DIRECTORY
+------------------------------------------------------------
+
+Created:
+    /shared
+
+Ownership:
+    root:linuxadmins
+
+Initial permissions:
+    770
+
+Command:
+    sudo mkdir /shared
+    sudo chown root:linuxadmins /shared
+    sudo chmod 770 /shared
+
+5. GROUP ACCESS TEST
+------------------------------------------------------------
+
+devops successfully created:
+    /shared/devops_test.txt
+
+admin successfully created:
+    /shared/admin_test.txt
+
+This verified that members of linuxadmins can access
+the shared directory.
+
+6. SGID CONFIGURATION
+------------------------------------------------------------
+
+Enabled SGID on /shared:
+
+    sudo chmod 2770 /shared
+
+Verification:
+
+    ls -ld /shared
+
+Expected:
+
+    drwxrws--- root linuxadmins /shared
+
+The 's' indicates that SGID is enabled.
+
+7. SGID TEST
+------------------------------------------------------------
+
+Created files:
+
+    devops_shared.txt
+    admin_shared.txt
+
+Expected group ownership:
+
+    devops_shared.txt -> devops:linuxadmins
+    admin_shared.txt  -> admin:linuxadmins
+
+This demonstrates automatic group inheritance.
+
+8. FINAL PERMISSION STRUCTURE
+------------------------------------------------------------
+
+/home/devops
+    Owner: devops
+    Group: devops
+    Permission: 750
+
+/home/admin
+    Owner: admin
+    Group: admin
+    Permission: 750
+
+/shared
+    Owner: root
+    Group: linuxadmins
+    Permission: 2770
+    SGID: Enabled
+
+9. LINUX CONCEPTS PRACTICED
+------------------------------------------------------------
+
+- User management
+- Group management
+- User and group IDs
+- Group membership
+- Directory ownership
+- chmod
+- chown
+- Linux permissions
+- Shared directories
+- Group-based access control
+- SGID
+- Permission verification
+- Testing access as different users
+
+============================================================
+                    END OF LAB
+============================================================
